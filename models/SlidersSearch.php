@@ -5,7 +5,7 @@ namespace ut8ia\slidermodule\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use Sliders;
+use  ut8ia\slidermodule\models\Sliders;
 
 /**
  * SlidersSearch represents the model behind the search form about `common\models\Sliders`.
