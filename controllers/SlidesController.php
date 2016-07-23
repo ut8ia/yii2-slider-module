@@ -3,16 +3,16 @@
 namespace ut8ia\slidermodule\controllers;
 
 use Yii;
-use ut8ia\slidermodule\models\Sliders;
-use ut8ia\slidermodule\models\SlidersSearch;
+use ut8ia\slidermodule\models\Slides;
+use ut8ia\slidermodule\models\SlidesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * SlidersController implements the CRUD actions for Sliders model.
+ * SlidesController implements the CRUD actions for Slides model.
  */
-class SlidersController extends Controller
+class SlidesController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class SlidersController extends Controller
     }
 
     /**
-     * Lists all Sliders models.
+     * Lists all Slides models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new SlidersSearch();
+        $searchModel = new SlidesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -46,7 +46,7 @@ class SlidersController extends Controller
     }
 
     /**
-     * Displays a single Sliders model.
+     * Displays a single Slides model.
      * @param integer $id
      * @return mixed
      */
@@ -58,13 +58,13 @@ class SlidersController extends Controller
     }
 
     /**
-     * Creates a new Sliders model.
+     * Creates a new Slides model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Sliders();
+        $model = new Slides();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class SlidersController extends Controller
     }
 
     /**
-     * Updates an existing Sliders model.
+     * Updates an existing Slides model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -95,7 +95,7 @@ class SlidersController extends Controller
     }
 
     /**
-     * Deletes an existing Sliders model.
+     * Deletes an existing Slides model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -103,19 +103,20 @@ class SlidersController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
+
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Sliders model based on its primary key value.
+     * Finds the Slides model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Sliders the loaded model
+     * @return Slides the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Sliders::findOne($id)) !== null) {
+        if (($model = Slides::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
