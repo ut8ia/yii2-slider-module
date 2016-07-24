@@ -40,8 +40,7 @@ class SlidersController extends Controller
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'layout' =>'@app/backend/views/layouts/main'
+            'dataProvider' => $dataProvider
         ]);
     }
 
