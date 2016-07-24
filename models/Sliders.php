@@ -1,13 +1,16 @@
 <?php
 
 namespace ut8ia\slidermodule\models;
+
 use Yii;
+use ut8ia\slidermodule\models\Slides;
 
 /**
  * This is the model class for table "sliders".
  *
  * @property integer $id
  * @property string $name
+ * @property Slides
  */
 class Sliders extends \yii\db\ActiveRecord
 {
@@ -40,4 +43,12 @@ class Sliders extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Name'),
         ];
     }
+
+
+    public function getSlides()
+    {
+        return $this->hasMany(Slides::class, ['slider_id' => 'id']);
+    }
+
+
 }

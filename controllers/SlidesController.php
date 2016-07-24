@@ -4,6 +4,7 @@ namespace ut8ia\slidermodule\controllers;
 
 use Yii;
 use ut8ia\slidermodule\models\Slides;
+use ut8ia\slidermodule\models\Sliders;
 use ut8ia\slidermodule\models\SlidesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -40,7 +41,8 @@ class SlidesController extends Controller
 
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
+            'layout' => '@app/backend/views/layouts/main'
         ]);
     }
 
@@ -61,17 +63,21 @@ class SlidesController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($slider_id)
     {
         $model = new Slides();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        //check that slider exist
+        if (Sliders::findOne($slider_id)) {
+            //load model
+            $load_mark = $model->load(Yii::$app->request->post());
+            // inject slider_id
+            $model->slider_id = $slider_id;
+            if ($load_mark && $model->save()) {
+                return $this->redirect(['sliders/update', 'id' => $model->slider_id]);
+            }
         }
+        return $this->render('create', ['model' => $model]);
+
     }
 
     /**
