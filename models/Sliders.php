@@ -44,7 +44,9 @@ class Sliders extends \yii\db\ActiveRecord
         ];
     }
 
-
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getSlides()
     {
         return $this->hasMany(Slides::class, ['slider_id' => 'id']);

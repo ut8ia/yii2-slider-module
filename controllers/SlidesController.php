@@ -91,7 +91,7 @@ class SlidesController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['sliders/update', 'id' => $model->slider_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -107,9 +107,10 @@ class SlidesController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        $model = $this->findModel($id);
+        $slider_id = $model->slider_id;
+        $model->delete();
+        return $this->redirect(['sliders/update', 'id' => $slider_id]);
     }
 
     /**

@@ -20,7 +20,10 @@ $this->params['breadcrumbs'][] = $this->title;
 //        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\ActionColumn',
-                'contentOptions' => ['class' => 'col-sm-1 text-right', 'nowrap' => 'nowrap'],],
+                'template' => '{update} {delete} ',
+                'contentOptions' => ['class' => 'col-sm-1 text-right', 'nowrap' => 'nowrap'],
+            ],
+
             [
                 'contentOptions' => ['class' => 'col-sm-1 small text-center'],
                 'attribute' => 'ID',

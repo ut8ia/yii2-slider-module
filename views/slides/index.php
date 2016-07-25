@@ -22,16 +22,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{update} {delete} ',
+                'contentOptions' => ['class' => 'col-sm-1 text-right', 'nowrap' => 'nowrap'],
+            ],
             'slider_id',
             'title',
             'text',
             'url:url',
-            // 'image',
-            // 'priority',
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
