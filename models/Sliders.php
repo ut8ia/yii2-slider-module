@@ -52,5 +52,17 @@ class Sliders extends \yii\db\ActiveRecord
         return $this->hasMany(Slides::class, ['slider_id' => 'id']);
     }
 
+    /**
+     * @param $id
+     * @return $this
+     */
+    public function byId($id)
+    {
+        return $this->find()
+            ->with('slides')
+            ->where(['=', 'id', $id])
+            ->one();
+    }
+
 
 }
