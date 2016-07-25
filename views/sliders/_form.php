@@ -3,14 +3,17 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 use ut8ia\slidermodule\models\Slides;
 use yii\data\ActiveDataProvider;
+use ut8ia\slidermodule\assets\SlidersFormAsset;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Sliders */
 /* @var $form yii\widgets\ActiveForm */
+
+SlidersFormAsset::register($this);
+
 ?>
 
 <div class="sliders-form">
@@ -52,16 +55,16 @@ use yii\data\ActiveDataProvider;
                         'contentOptions' => ['class' => 'text-left', 'nowrap' => 'nowrap'],
                     ],
                     [
-                        'contentOptions' => ['class' => 'col-sm-5 text-center'],
-                        'attribute' => 'Name',
+                        'contentOptions' => ['class' => 'col-sm-4 text-center'],
+                        'attribute' => 'Image',
                         'format' => 'html',
                         'value' => function($model) {
-                            return $model->url;
+                            return Html::img($model->image,['class'=>'image_preview']);
                         },
                     ],
                     [
-                        'contentOptions' => ['class' => 'col-sm-7 text-center'],
-                        'attribute' => 'Name',
+                        'contentOptions' => ['class' => 'col-sm-8 text-center'],
+                        'attribute' => 'Info',
                         'format' => 'html',
                         'value' => function($model) {
                             return $model->title;
