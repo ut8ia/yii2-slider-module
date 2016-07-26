@@ -31,7 +31,7 @@ class Slides extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['slider_id', 'url', 'image'], 'required'],
+            [['slider_id', 'image'], 'required'],
             [['slider_id', 'priority'], 'integer'],
             [['title', 'url', 'image'], 'string', 'max' => 255],
             [['text'], 'string', 'max' => 1024],

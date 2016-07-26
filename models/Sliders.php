@@ -10,6 +10,7 @@ use ut8ia\slidermodule\models\Slides;
  *
  * @property integer $id
  * @property string $name
+ * @property string $slide_duration
  * @property Slides
  */
 class Sliders extends \yii\db\ActiveRecord
@@ -29,6 +30,7 @@ class Sliders extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
+            [['slide_duration'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
     }
@@ -41,6 +43,7 @@ class Sliders extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
+            'slide_duration' => Yii::t('app', 'Slide duration'),
         ];
     }
 

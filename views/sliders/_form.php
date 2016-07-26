@@ -32,6 +32,7 @@ SlidersFormAsset::register($this);
     ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'slide_duration')->textInput(['maxlength' => true]) ?>
     <hr>
     <div class="form-group row">
         <div class="col-lg-2"><?php echo Yii::t('main', 'Slides'); ?></div>

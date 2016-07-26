@@ -18,7 +18,7 @@ class SlidersSearch extends Sliders
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id','slide_duration'], 'integer'],
             [['name'], 'safe'],
         ];
     }

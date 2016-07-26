@@ -52,7 +52,7 @@ use pendalf89\filemanager\widgets\FileInput;
         // Optional, if set, only this image can be selected by user
         'thumb' => 'original',
         // Optional, if set, in container will be inserted selected image
-        'imageContainer' => '.img',
+        'imageContainer' => '.image_preview',
         // Default to FileInput::DATA_URL. This data will be inserted in input field
         'pasteData' => FileInput::DATA_URL,
         // JavaScript function, which will be called before insert file data to input.
