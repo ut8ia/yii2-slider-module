@@ -22,7 +22,7 @@ add into composer.json
  
  
  ** requirements **
- - http://github.com/pendalf89/filemanager
+ - http://github.com/pendalf89/yii2-filemanager
  
  
  ** recomended **
