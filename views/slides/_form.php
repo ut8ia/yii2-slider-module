@@ -3,10 +3,13 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use pendalf89\filemanager\widgets\FileInput;
+use ut8ia\slidermodule\assets\SlidersAdminAsset;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Slides */
 /* @var $form yii\widgets\ActiveForm */
+SlidersAdminAsset::register($this);
+
 ?>
 
 <div class="slides-form">

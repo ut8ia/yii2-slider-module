@@ -6,13 +6,13 @@ use yii\helpers\Url;
 use yii\grid\GridView;
 use ut8ia\slidermodule\models\Slides;
 use yii\data\ActiveDataProvider;
-use ut8ia\slidermodule\assets\SlidersFormAsset;
+use ut8ia\slidermodule\assets\SlidersAdminAsset;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Sliders */
 /* @var $form yii\widgets\ActiveForm */
 
-SlidersFormAsset::register($this);
+SlidersAdminAsset::register($this);
 
 ?>
 

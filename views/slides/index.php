@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
+use ut8ia\slidermodule\assets\SlidersAdminAsset;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\SlidesSearch */
@@ -9,29 +11,37 @@ use yii\grid\GridView;
 
 $this->title = Yii::t('app', 'Slides');
 $this->params['breadcrumbs'][] = $this->title;
+SlidersAdminAsset::register($this);
 ?>
 <div class="slides-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Slides'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
-
-            ['class' => 'yii\grid\ActionColumn',
-                'template' => '{update} {delete} ',
-                'contentOptions' => ['class' => 'col-sm-1 text-right', 'nowrap' => 'nowrap'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'urlCreator' => function($action, $model) {
+                    return Url::toRoute(['slides/' . $action, 'id' => $model->id]);
+                },
+                'template' => '{update} <br> {delete} ',
+                'contentOptions' => ['class' => 'text-left', 'nowrap' => 'nowrap'],
             ],
-            'slider_id',
-            'title',
-            'text',
-            'url:url',
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'contentOptions' => ['class' => 'col-sm-4 text-center'],
+                'attribute' => 'Image',
+                'format' => 'html',
+                'value' => function($model) {
+                    return Html::img($model->image,['class'=>'image_preview']);
+                },
+            ],
+            [
+                'contentOptions' => ['class' => 'col-sm-8 text-center'],
+                'attribute' => 'Info',
+                'format' => 'html',
+                'value' => function($model) {
+                    return $model->title;
+                }
+            ],
+
         ],
     ]); ?>
 </div>

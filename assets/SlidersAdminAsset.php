@@ -3,7 +3,7 @@
 namespace ut8ia\slidermodule\assets;
 use yii\web\AssetBundle;
 
-class SlidersFormAsset extends AssetBundle
+class SlidersAdminAsset extends AssetBundle
 {
     public $sourcePath = '@vendor/ut8ia/yii2-slider-module/assets';
 
