@@ -20,7 +20,7 @@ class Sliders extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'sliders';
+        return 'slidermanager_sliders';
     }
 
     /**
