@@ -14,6 +14,7 @@ use Yii;
  * @property string $url
  * @property string $image
  * @property integer $priority
+ * @property integer $lang_id
  */
 class Slides extends \yii\db\ActiveRecord
 {
@@ -32,7 +33,7 @@ class Slides extends \yii\db\ActiveRecord
     {
         return [
             [['slider_id', 'image'], 'required'],
-            [['slider_id', 'priority'], 'integer'],
+            [['slider_id', 'priority','lang_id'], 'integer'],
             [['title', 'url', 'image'], 'string', 'max' => 255],
             [['text'], 'string', 'max' => 1024],
         ];

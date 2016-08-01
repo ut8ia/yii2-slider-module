@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use pendalf89\filemanager\widgets\FileInput;
 use ut8ia\slidermodule\assets\SlidersAdminAsset;
+use ut8ia\multylang\models\Lang;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Slides */
@@ -41,6 +42,8 @@ SlidersAdminAsset::register($this);
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'text')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'lang_id')->dropDownList(Lang::selector()) ?>
 
     <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
 
