@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use pendalf89\filemanager\widgets\FileInput;
+use ut8ia\filemanager\widgets\FileInput;
 use ut8ia\slidermodule\assets\SlidersAdminAsset;
 use ut8ia\multylang\models\Lang;
 
