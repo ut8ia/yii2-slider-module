@@ -42,7 +42,7 @@ class CarouselWidget extends Widget
                     ' . $text . '
                 </div>';
 
-            // wrap into ancor if not epty
+            // wrap into ancor if not empty
             if (!empty($slide['url'])) {
                 $slideItem = '<a href="' . Url::to($slide['url']) . '">' . $slideItem . '</a>';
             }
@@ -52,6 +52,13 @@ class CarouselWidget extends Widget
             $activeTrigger = 'item';
             $activeNavTrigger = '';
         }
+
+        $this->renderMe($navItems,$slideItems,$slider->slide_duration);
+    }
+
+
+
+    public function renderMe($navItems,$slideItems,$duration){
 
         echo '
 <!-- Header Carousel -->
@@ -71,8 +78,8 @@ class CarouselWidget extends Widget
     <a class="right carousel-control" href="#myCarousel" data-slide="next">
         <span class="icon-next"></span>
     </a>
-    <input type="hidden" id="slide_duration" value="'.$slider->slide_duration.'">
+    <input type="hidden" id="slide_duration" value="'.$duration.'">
 </header>';
-    }
 
+    }
 }
