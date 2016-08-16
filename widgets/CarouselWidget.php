@@ -12,9 +12,33 @@ class CarouselWidget extends Widget
 {
 
     public $sliderId;
+    public $slides;
+    public $mode;
+    public $slideDuration;
+    public $slideDurationDefault = 3000;
 
     public function run()
     {
+        switch($this->mode){
+            case 'slider':
+                $method = 'bySlider';
+                break;
+            case 'images':
+                $method = 'byImages';
+                break;
+            default:
+                $method ='devnull';
+        }
+
+       return $this->$method ();
+    }
+
+    public function devnull()
+    {
+        return null;
+    }
+
+    public function bySlider(){
         $obj = new Sliders();
         $slider = $obj->byId($this->sliderId);
 
@@ -53,33 +77,33 @@ class CarouselWidget extends Widget
             $activeNavTrigger = '';
         }
 
-        $this->renderMe($navItems,$slideItems,$slider->slide_duration);
+        $duration = ($slider->slide_duration)?$slider->slide_duration:$this->slideDurationDefault;
+        return $this->render('HeaderSlider',['navItems'=>$navItems,'slideItems'=>$slideItems ,'duration'=>$duration]);
     }
 
+    public function byImages(){
+        $navItems = '';
+        $slideItems = '';
+        $c = 0;
+        $activeTrigger = 'item active';
+        $activeNavTrigger = 'class="active"';
+        foreach ($this->slides as $slide) {
+            $navItems .= '
+            <li data-target="#myCarousel" data-slide-to="' . $c . '" ' . $activeNavTrigger . '></li>';
+            $slideItem = '
+            <img style ="width:100%" src="' . Url::home(true) . $slide['src'] . '">';
 
+            // slide wrapper
+            $slideItems .= '
+            <div class="' . $activeTrigger . '">' . $slideItem . '
+            </div>';
+            $c++;
+            $activeTrigger = 'item';
+            $activeNavTrigger = '';
+        }
 
-    public function renderMe($navItems,$slideItems,$duration){
-
-        echo '
-<!-- Header Carousel -->
-<header id="myCarousel" class="carousel slide">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">' . $navItems . '</ol>
-
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-' . $slideItems . '
-    </div>
-
-    <!-- Controls -->
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-        <span class="icon-prev"></span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-        <span class="icon-next"></span>
-    </a>
-    <input type="hidden" id="slide_duration" value="'.$duration.'">
-</header>';
-
+        $duration = ($this->slideDuration)?$this->slideDuration:$this->slideDurationDefault;
+       return $this->render('SingleSlider',['navItems'=>$navItems,'slideItems'=>$slideItems ,'duration'=>$duration]);
     }
+
 }
