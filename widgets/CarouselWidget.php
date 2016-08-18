@@ -60,7 +60,7 @@ class CarouselWidget extends Widget
         foreach ($slides as $slide) {
             $navItems .= '<li data-target="#myCarousel" data-slide-to="' . $c . '" ' . $activeNavTrigger . '></li>';
             $text = (!empty($slide['text'])) ? '<h4>' . $slide['text'] . '</h4>' : '';
-            $slideItem = '<div class="fill" style="background-image:url(\'' . Url::home(true) . $slide['image'] . '\');"></div>
+            $slideItem = '<div class="fill" style="background-image:url(\'' . $slide['image'] . '\');"></div>
                 <div class="carousel-caption">
                     <h2>' . $slide['title'] . '</h2>
                     ' . $text . '
@@ -91,7 +91,7 @@ class CarouselWidget extends Widget
             $navItems .= '
             <li data-target="#myCarousel" data-slide-to="' . $c . '" ' . $activeNavTrigger . '></li>';
             $slideItem = '
-            <img style ="width:100%" src="' . Url::home(true) . $slide['src'] . '">';
+            <img style ="width:100%" src="' . $slide['src'] . '">';
 
             // slide wrapper
             $slideItems .= '
