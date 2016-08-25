@@ -14,31 +14,41 @@ class CarouselWidget extends Widget
     public $sliderId;
     public $slides;
     public $mode;
+    public $template;
+    public $lng;
+    public $showAlt;
     public $slideDuration;
     public $slideDurationDefault = 3000;
 
     public function run()
     {
-        switch($this->mode){
+        switch ($this->mode) {
             case 'slider':
-                $method = 'bySlider';
+                $this->prepareSliderData();
                 break;
             case 'images':
-                $method = 'byImages';
+                $this->prepareImagesData();
                 break;
-            default:
-                $method ='devnull';
         }
 
-       return $this->$method ();
+        $this->slideDuration = ($this->slideDuration) ? $this->slideDuration : $this->slideDurationDefault;
+
+        switch ($this->template) {
+            case 'header':
+                $method = 'makeHeader';
+                break;
+            case 'single':
+                $method = 'makeSingle';
+                break;
+            default:
+                $method = 'devnull';
+        }
+
+        return $this->$method ();
     }
 
-    public function devnull()
+    public function prepareSliderData()
     {
-        return null;
-    }
-
-    public function bySlider(){
         $obj = new Sliders();
         $slider = $obj->byId($this->sliderId);
 
@@ -52,12 +62,44 @@ class CarouselWidget extends Widget
             return null;
         }
 
+        $this->slideDuration = ($slider->slide_duration) ? $slider->slide_duration : $this->slideDurationDefault;
+        $this->slides = $slider->slides;
+    }
+
+    public function prepareImagesData()
+    {
+
+        $items = $this->slides;
+        if (empty($items)) {
+            return null;
+        }
+        $c = 0;
+        foreach ($items as $item) {
+            $out[$c]['image'] = $item['src'];
+            if ($this->showAlt and isset($item['alt'])) {
+                $out[$c]['image'] = $item['alt'];
+            }
+            $c++;
+        }
+        $this->slides = $out;
+
+    }
+
+
+    public function devnull()
+    {
+        return null;
+    }
+
+    public function makeHeader()
+    {
+
         $navItems = '';
         $slideItems = '';
         $c = 0;
         $activeTrigger = 'item active';
         $activeNavTrigger = 'class="active"';
-        foreach ($slides as $slide) {
+        foreach ($this->slides as $slide) {
             $navItems .= '<li data-target="#myCarousel" data-slide-to="' . $c . '" ' . $activeNavTrigger . '></li>';
             $text = (!empty($slide['text'])) ? '<h4>' . $slide['text'] . '</h4>' : '';
             $slideItem = '<div class="fill" style="background-image:url(\'' . $slide['image'] . '\');"></div>
@@ -77,11 +119,11 @@ class CarouselWidget extends Widget
             $activeNavTrigger = '';
         }
 
-        $duration = ($slider->slide_duration)?$slider->slide_duration:$this->slideDurationDefault;
-        return $this->render('HeaderSlider',['navItems'=>$navItems,'slideItems'=>$slideItems ,'duration'=>$duration]);
+        return $this->render('HeaderSlider', ['navItems' => $navItems, 'slideItems' => $slideItems, 'duration' =>$this->slideDuration]);
     }
 
-    public function byImages(){
+    public function makeSingle()
+    {
         $navItems = '';
         $slideItems = '';
         $c = 0;
@@ -91,7 +133,7 @@ class CarouselWidget extends Widget
             $navItems .= '
             <li data-target="#myCarousel" data-slide-to="' . $c . '" ' . $activeNavTrigger . '></li>';
             $slideItem = '
-            <img style ="width:100%" src="' . $slide['src'] . '">';
+            <img style ="width:100%" src="' . $slide['image'] . '">';
 
             // slide wrapper
             $slideItems .= '
@@ -102,8 +144,7 @@ class CarouselWidget extends Widget
             $activeNavTrigger = '';
         }
 
-        $duration = ($this->slideDuration)?$this->slideDuration:$this->slideDurationDefault;
-       return $this->render('SingleSlider',['navItems'=>$navItems,'slideItems'=>$slideItems ,'duration'=>$duration]);
+        return $this->render('SingleSlider', ['navItems' => $navItems, 'slideItems' => $slideItems, 'duration' => $this->slideDuration ]);
     }
 
 }
