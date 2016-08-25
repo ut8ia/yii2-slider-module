@@ -2,8 +2,8 @@
 
 namespace ut8ia\slidermodule\models;
 
-use Yii;
 use ut8ia\slidermodule\models\Slides;
+use Yii;
 
 /**
  * This is the model class for table "sliders".
@@ -59,12 +59,15 @@ class Sliders extends \yii\db\ActiveRecord
      * @param $id
      * @return $this
      */
-    public function byId($id)
+    public function byId($id, $lang_id = null)
     {
-        return $this->find()
-            ->with('slides')
-            ->where(['=', 'id', $id])
-            ->one();
+        $slides = $this->find()
+            ->join('LEFT JOIN', Slides::tableName(), Slides::tableName().'.slider_id' .' = '.Sliders::tableName().'.id')
+            ->where(['=', Sliders::tableName().'.id', $id]);
+        if ($lang_id) {
+            $slides->andWhere(['=', Slides::tableName() . '.lang_id', $lang_id]);
+        }
+        return $slides->one();
     }
 
 

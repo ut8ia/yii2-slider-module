@@ -15,7 +15,7 @@ class CarouselWidget extends Widget
     public $slides;
     public $mode;
     public $template;
-    public $lng;
+    public $lang_id;
     public $showAlt;
     public $slideDuration;
     public $slideDurationDefault = 3000;
@@ -50,7 +50,7 @@ class CarouselWidget extends Widget
     public function prepareSliderData()
     {
         $obj = new Sliders();
-        $slider = $obj->byId($this->sliderId);
+        $slider = $obj->byId($this->sliderId,$this->lang_id);
 
         // exit if slider not exist
         if (!$slider) {
