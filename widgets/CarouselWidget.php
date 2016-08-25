@@ -4,6 +4,7 @@ namespace ut8ia\slidermodule\widgets;
 
 use yii\base\Widget;
 use ut8ia\slidermodule\models\Sliders;
+use ut8ia\slidermodule\models\Slides;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use Yii;
@@ -49,21 +50,16 @@ class CarouselWidget extends Widget
 
     public function prepareSliderData()
     {
-        $obj = new Sliders();
-        $slider = $obj->byId($this->sliderId,$this->lang_id);
+        $obj = new Slides();
+        $slides = $obj->bySliderId($this->sliderId,$this->lang_id);
 
         // exit if slider not exist
-        if (!$slider) {
+        if (empty($slides)) {
             return null;
         };
 
-        // exit on empty slider
-        if (empty($slides = ArrayHelper::toArray($slider->slides))) {
-            return null;
-        }
-
-        $this->slideDuration = ($slider->slide_duration) ? $slider->slide_duration : $this->slideDurationDefault;
-        $this->slides = $slider->slides;
+        $this->slideDuration = ($slides[0]['slider']['slide_duration']) ? $slides[0]['slider']['slide_duration'] : $this->slideDurationDefault;
+        $this->slides = $slides;
     }
 
     public function prepareImagesData()

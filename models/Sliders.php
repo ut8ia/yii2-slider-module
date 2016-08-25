@@ -55,20 +55,7 @@ class Sliders extends \yii\db\ActiveRecord
         return $this->hasMany(Slides::class, ['slider_id' => 'id']);
     }
 
-    /**
-     * @param $id
-     * @return $this
-     */
-    public function byId($id, $lang_id = null)
-    {
-        $slides = $this->find()
-            ->join('LEFT JOIN', Slides::tableName(), Slides::tableName().'.slider_id' .' = '.Sliders::tableName().'.id')
-            ->where(['=', Sliders::tableName().'.id', $id]);
-        if ($lang_id) {
-            $slides->andWhere(['=', Slides::tableName() . '.lang_id', $lang_id]);
-        }
-        return $slides->one();
-    }
+
 
 
 }
