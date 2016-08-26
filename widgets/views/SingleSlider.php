@@ -1,4 +1,4 @@
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+<div id="<?= $carouselId; ?>" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators"><?= $navItems; ?></ol>
 
@@ -8,10 +8,10 @@
     </div>
 
     <!-- Controls -->
-    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+    <a class="left carousel-control" href="#<?= $carouselId; ?>" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left"></span>
     </a>
-    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+    <a class="right carousel-control" href="#<?= $carouselId; ?>" data-slide="next">
         <span class="glyphicon glyphicon-chevron-right"></span>
     </a>
     <input type="hidden" id="slide_duration" value="<?= $duration; ?>">

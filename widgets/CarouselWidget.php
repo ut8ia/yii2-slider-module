@@ -20,9 +20,13 @@ class CarouselWidget extends Widget
     public $showAlt;
     public $slideDuration;
     public $slideDurationDefault = 3000;
+    public $carouselId;
 
     public function run()
     {
+        // generate carousel id for dom if it is not set
+        $this->carouselId = ($this->carouselId)?$this->carouselId:'carousel'.rand(0,4096);
+
         switch ($this->mode) {
             case 'slider':
                 $this->prepareSliderData();
@@ -96,7 +100,7 @@ class CarouselWidget extends Widget
         $activeTrigger = 'item active';
         $activeNavTrigger = 'class="active"';
         foreach ($this->slides as $slide) {
-            $navItems .= '<li data-target="#myCarousel" data-slide-to="' . $c . '" ' . $activeNavTrigger . '></li>';
+            $navItems .= '<li data-target="#'.$this->carouselId.'" data-slide-to="' . $c . '" ' . $activeNavTrigger . '></li>';
             $text = (!empty($slide['text'])) ? '<h4>' . $slide['text'] . '</h4>' : '';
             $slideItem = '<div class="fill" style="background-image:url(\'' . $slide['image'] . '\');"></div>
                 <div class="carousel-caption">
@@ -115,7 +119,12 @@ class CarouselWidget extends Widget
             $activeNavTrigger = '';
         }
 
-        return $this->render('HeaderSlider', ['navItems' => $navItems, 'slideItems' => $slideItems, 'duration' =>$this->slideDuration]);
+        return $this->render('HeaderSlider', [
+            'navItems' => $navItems,
+            'slideItems' => $slideItems,
+            'duration' =>$this->slideDuration,
+            'carouselId' =>$this->carouselId
+        ]);
     }
 
     public function makeSingle()
@@ -127,7 +136,7 @@ class CarouselWidget extends Widget
         $activeNavTrigger = 'class="active"';
         foreach ($this->slides as $slide) {
             $navItems .= '
-            <li data-target="#myCarousel" data-slide-to="' . $c . '" ' . $activeNavTrigger . '></li>';
+            <li data-target="#'.$this->carouselId.'" data-slide-to="' . $c . '" ' . $activeNavTrigger . '></li>';
             $slideItem = '
             <img style ="width:100%" src="' . $slide['image'] . '">';
 
@@ -140,7 +149,12 @@ class CarouselWidget extends Widget
             $activeNavTrigger = '';
         }
 
-        return $this->render('SingleSlider', ['navItems' => $navItems, 'slideItems' => $slideItems, 'duration' => $this->slideDuration ]);
+        return $this->render('SingleSlider',  [
+            'navItems' => $navItems,
+            'slideItems' => $slideItems,
+            'duration' =>$this->slideDuration,
+            'carouselId' =>$this->carouselId
+        ]);
     }
 
 }
